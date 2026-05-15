@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CodeBlock, GlassCard, Logo, SecureIcon } from "@/components";
+import { CodeBlock, GlassCard, Logo } from "@/components";
 
 const sidebar = ["Overview", "Providers", "Sessions", "Tokens", "Errors", "API Keys", "Users"];
 const cards = [
@@ -124,7 +124,6 @@ export default function DashboardPage() {
                     <p className="text-sm font-black text-[#1f241c]/55">Error monitoring</p>
                     <h2 className="mt-2 text-2xl font-black">Callback failures</h2>
                   </div>
-                  <SecureIcon />
                 </div>
                 <div className="mt-6 rounded-3xl bg-[#1f241c] p-5 text-[#FBE8CE]">
                   <p className="text-sm font-black">OIDC_ERROR_REDIRECT_URI</p>

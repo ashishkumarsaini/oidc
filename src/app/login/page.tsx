@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AuthShell, Field, PrimaryButton, SelectField } from "@/components";
+import { AuthShell, Field, PrimaryButton } from "@/components";
 
 export default function LoginPage() {
   return (
@@ -13,7 +13,7 @@ export default function LoginPage() {
       <form className="grid gap-5">
         <Field label="Email address" type="email" placeholder="admin@company.com" />
         <Field label="Password" type="password" placeholder="Enter your password" />
-        <SelectField label="Workspace" options={["Production", "Staging", "Customer sandbox"]} />
+        {/* <SelectField label="Workspace" options={["Production", "Staging", "Customer sandbox"]} /> */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <label className="flex items-center gap-2 font-bold text-[#1f241c]/60">
             <input type="checkbox" className="size-4 accent-[#9AB17A]" />
@@ -25,12 +25,12 @@ export default function LoginPage() {
         </div>
         <PrimaryButton>Sign in securely</PrimaryButton>
       </form>
-      <div className="mt-7 rounded-2xl border border-[#E4DFB5] bg-[#C3CC9B]/35 p-4 text-sm leading-6 text-[#1f241c]/70">
+      <p className="mt-7 text-sm font-bold text-[#1f241c]/60">
         New workspace?{" "}
         <Link href="/register" className="font-black text-[#1f241c] hover:text-[#1f241c]/70">
           Register your OIDC provider
         </Link>
-      </div>
+      </p>
     </AuthShell>
   );
 }

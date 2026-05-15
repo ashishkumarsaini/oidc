@@ -1,13 +1,3 @@
-export function SecureIcon() {
-  return (
-    <div className="grid size-14 place-items-center rounded-3xl border border-[#E4DFB5] bg-[#C3CC9B]/65">
-      <div className="relative h-7 w-6 rounded-b-lg border-2 border-[#1f241c]">
-        <span className="absolute -top-4 left-1/2 h-5 w-5 -translate-x-1/2 rounded-t-full border-2 border-b-0 border-[#1f241c]" />
-      </div>
-    </div>
-  );
-}
-
 export function AuthFlow() {
   return (
     <div className="mt-8 grid gap-3">

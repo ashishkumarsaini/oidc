@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AuthShell, Field, PrimaryButton, SelectField } from "@/components";
+import { AuthShell, Field, PrimaryButton } from "@/components";
 
 export default function RegisterPage() {
   return (
@@ -12,15 +12,15 @@ export default function RegisterPage() {
     >
       <form className="grid gap-5">
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Full name" placeholder="Asha Mehta" />
-          <Field label="Organization" placeholder="Northstar Labs" />
+          <Field label="Full name" placeholder="Full Name" required />
+          <Field label="Organization" placeholder="Organization" required />
         </div>
-        <Field label="Work email" type="email" placeholder="asha@northstar.dev" />
-        <Field label="Issuer slug" placeholder="northstar-auth" />
-        <SelectField label="Application type" options={["Web application", "Single-page app", "Mobile app", "Machine-to-machine"]} />
-        <Field label="Password" type="password" placeholder="Create a strong password" />
+        <Field label="Work email" type="email" placeholder="Email Address" required />
+        {/* <Field label="Issuer slug" placeholder="northstar-auth" /> */}
+        {/* <SelectField label="Application type" options={["Web application", "Single-page app", "Mobile app", "Machine-to-machine"]} /> */}
+        <Field label="Password" type="password" placeholder="Create a strong password" required />
         <label className="flex items-start gap-3 rounded-2xl border border-[#E4DFB5] bg-[#C3CC9B]/35 p-4 text-sm leading-6 text-[#1f241c]/70">
-          <input type="checkbox" className="mt-1 size-4 accent-[#9AB17A]" />
+          <input type="checkbox" className="mt-1 size-4 accent-[#9AB17A]" required />
           <span>
             I agree to keep redirect URIs, secrets, and signing keys controlled by my
             organization&apos;s security policy.
