@@ -72,15 +72,13 @@ export default function Home() {
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-center">
             <GlassCard className="p-7">
               <Badge>API Response</Badge>
-              <div className="mt-5">
+              <div className="">
                 <CodeBlock>
                   {`{
                     "issuer": "https://auth.ashish.dev",
                     "authorization_endpoint": "/oauth2/authorize",
                     "token_endpoint": "/oauth2/token",
                     "jwks_uri": "/oauth2/jwks",
-                    "response_types_supported": ["code"],
-                    "code_challenge_methods_supported": ["S256"]
                   }`}
                 </CodeBlock>
               </div>
