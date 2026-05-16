@@ -4,6 +4,7 @@ export const usersTable = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   full_name: varchar("full_name", { length: 100 }),
   email: varchar("email", { length: 322 }).notNull(),
+  organization: varchar("organization", { length: 322 }).notNull(),
 
   password: varchar("password", { length: 66 }),
   salt: text("salt"),

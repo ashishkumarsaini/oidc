@@ -10,10 +10,11 @@ import {
 } from "react";
 
 export type AuthUser = {
-  id?: string;
-  full_name?: string | null;
+  id: string;
+  full_name: string | null;
   email: string;
-  redirect_uri?: string;
+  redirect_uri: string;
+  organization: string;
 };
 
 type AuthContextValue = {

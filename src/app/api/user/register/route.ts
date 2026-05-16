@@ -7,9 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 
 export async function POST(request: NextRequest,) {
-  const { full_name, email, password, redirect_uri } = await request.json();
+  const { full_name,
+    organization,
+    email,
+    password,
+    redirect_uri, } = await request.json();
 
-  if (!full_name || !email || !password || !redirect_uri) {
+  if (!full_name || !email || !password || !redirect_uri || !organization) {
     return NextResponse.json({
       message: 'All fields are required',
       success: false
@@ -34,7 +38,7 @@ export async function POST(request: NextRequest,) {
     const hash = crypto.createHash('sha256').update(password + salt).digest('hex')
 
     const user: typeof usersTable.$inferInsert = {
-      full_name, email, password: hash, salt, redirect_uri
+      full_name, email, password: hash, salt, redirect_uri, organization
     };
 
     const insertedUser = await db.insert(usersTable).values(user).returning({

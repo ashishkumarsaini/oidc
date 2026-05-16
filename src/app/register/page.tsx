@@ -1,10 +1,20 @@
 "use client"
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
-import { SubmitEventHandler, useState } from "react";
-import { redirect } from "next/navigation";
+import { SubmitEventHandler, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/provider/auth-provider";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
   const [formValues, setFormValues] = useState({
     full_name: '',
     organization: '',
@@ -40,12 +50,11 @@ export default function RegisterPage() {
     const data = await response.json();
 
     if (data.success) {
-      redirect('/login')
+      router.push('/login')
     } else {
       setError(data.message || 'Unable to register user.');
     }
   }
-
 
   return (
     <AuthShell

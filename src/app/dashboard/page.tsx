@@ -33,7 +33,7 @@ const users = [
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -50,6 +50,9 @@ export default function DashboardPage() {
       <div className="grid min-h-screen lg:grid-cols-[280px_1fr]">
         <aside className="border-b border-[#E4DFB5] bg-white/35 p-5 backdrop-blur-xl lg:border-b-0 lg:border-r">
           <Logo />
+          <div className="mt-8 rounded-[24px] border border-[#E4DFB5] bg-[#C3CC9B]/45 p-5">
+            <p className="text-sm font-black">{user?.organization}</p>
+          </div>
           <nav className="mt-8 grid gap-2">
             {sidebar.map((item, index) => (
               <Link
@@ -64,12 +67,7 @@ export default function DashboardPage() {
               </Link>
             ))}
           </nav>
-          <div className="mt-8 rounded-[24px] border border-[#E4DFB5] bg-[#C3CC9B]/45 p-5">
-            <p className="text-sm font-black">OIDC authentication</p>
-            <p className="mt-2 text-sm leading-6 text-[#1f241c]/65">
-              31 applications use hosted login, rotating JWKS, and secure session policies.
-            </p>
-          </div>
+
         </aside>
 
         <section className="overflow-hidden">
@@ -81,12 +79,8 @@ export default function DashboardPage() {
               <h1 className="mt-2 text-3xl font-black tracking-tight">Authentication Dashboard</h1>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <input
-                placeholder="Search sessions, users, clients..."
-                className="h-12 min-w-72 rounded-2xl border border-[#E4DFB5] bg-white/60 px-4 text-sm font-bold outline-none transition placeholder:text-[#1f241c]/35 focus:border-[#9AB17A] focus:ring-4 focus:ring-[#9AB17A]/20"
-              />
               <button className="h-12 rounded-2xl bg-[#9AB17A] px-5 text-sm font-black shadow-lg shadow-[#9AB17A]/25 transition hover:-translate-y-0.5">
-                New provider
+                New Application
               </button>
             </div>
           </header>

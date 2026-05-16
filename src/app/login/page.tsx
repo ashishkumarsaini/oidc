@@ -1,12 +1,20 @@
 'use client'
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
-import { SubmitEventHandler, useState } from "react";
+import { SubmitEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/provider/auth-provider";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
