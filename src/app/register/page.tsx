@@ -1,7 +1,25 @@
+"use client"
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [formValues, setFormValues] = useState({
+    fullName: '',
+    organization: '',
+    email: '',
+    password: '',
+    redirectUri: '',
+  })
+
+  const handleFormValueChange = (formField: string, formValues: string) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [formField]: formValues
+    }));
+  };
+
+
   return (
     <AuthShell
       eyebrow="Start a tenant"
@@ -12,13 +30,14 @@ export default function RegisterPage() {
     >
       <form className="grid gap-5">
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Full name" placeholder="Full Name" required />
-          <Field label="Organization" placeholder="Organization" required />
+          <Field label="Full name" placeholder="Full Name" required value={formValues.fullName} onChange={handleFormValueChange} />
+          <Field label="Organization" placeholder="Organization" required value={formValues.organization} onChange={handleFormValueChange} />
         </div>
-        <Field label="Work email" type="email" placeholder="Email Address" required />
+        <Field label="Work email" type="email" placeholder="Email Address" required value={formValues.email} onChange={handleFormValueChange} />
         {/* <Field label="Issuer slug" placeholder="northstar-auth" /> */}
         {/* <SelectField label="Application type" options={["Web application", "Single-page app", "Mobile app", "Machine-to-machine"]} /> */}
-        <Field label="Password" type="password" placeholder="Create a strong password" required />
+        <Field label="Password" type="password" placeholder="Create a strong password" required value={formValues.password} onChange={handleFormValueChange} />
+        <Field label="Redirect URI" type="url" placeholder="http://xyz.com/authenticate/callback" required value={formValues.redirectUri} onChange={handleFormValueChange} />
         <label className="flex items-start gap-3 rounded-2xl border border-[#E4DFB5] bg-[#C3CC9B]/35 p-4 text-sm leading-6 text-[#1f241c]/70">
           <input type="checkbox" className="mt-1 size-4 accent-[#9AB17A]" required />
           <span>

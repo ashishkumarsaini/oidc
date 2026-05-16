@@ -3,13 +3,10 @@ import {
   BackgroundShapes,
   Badge,
   CodeBlock,
-  Field,
   GlassCard,
   PageShell,
-  PrimaryButton,
   PrimaryLink,
   SecondaryLink,
-  SelectField,
 } from "@/components";
 
 const endpoints = [
@@ -121,50 +118,14 @@ export default function DocumentationPage() {
                 <h2 className="mt-5 text-3xl font-black tracking-tight">Elegant JSON responses</h2>
                 <div className="mt-6">
                   <CodeBlock>{`{
-  "access_token": "eyJhbGciOiJSUzI1NiIs...",
-  "id_token": "eyJraWQiOiJrZXlfMjAyNi...",
-  "token_type": "Bearer",
-  "expires_in": 3600,
-  "scope": "openid profile email",
-  "session_id": "sess_prod_4Kp9a2"
-}`}</CodeBlock>
-                </div>
-              </GlassCard>
-
-              <GlassCard id="sessions" className="p-7">
-                <Badge>Design System</Badge>
-                <h2 className="mt-5 text-3xl font-black tracking-tight">Production-ready components</h2>
-                <div className="mt-6 grid gap-5 lg:grid-cols-2">
-                  <div className="grid gap-4">
-                    <Field label="Client ID" placeholder="client_prod_8Lk2" />
-                    <SelectField label="Grant type" options={["Authorization Code", "Refresh Token", "Client Credentials"]} />
-                    <PrimaryButton>Test token exchange</PrimaryButton>
-                  </div>
-                  <div className="grid gap-4">
-                    <div className="rounded-3xl border border-[#E4DFB5] bg-white/45 p-5">
-                      <p className="text-sm font-black">Toast notification</p>
-                      <p className="mt-2 text-sm text-[#1f241c]/65">Provider connected successfully.</p>
-                    </div>
-                    <div className="rounded-3xl border border-[#E4DFB5] bg-[#C3CC9B]/45 p-5">
-                      <p className="text-sm font-black">Modal preview</p>
-                      <p className="mt-2 text-sm text-[#1f241c]/65">Rotate API key with audit confirmation.</p>
-                    </div>
-                  </div>
-                </div>
-              </GlassCard>
-
-              <GlassCard id="webhooks" className="p-7">
-                <Badge>Light / Dark</Badge>
-                <h2 className="mt-5 text-3xl font-black tracking-tight">Mode previews</h2>
-                <div className="mt-6 grid gap-5 md:grid-cols-2">
-                  <div className="rounded-3xl border border-[#E4DFB5] bg-[#FBE8CE] p-5">
-                    <p className="font-black">Light console</p>
-                    <p className="mt-2 text-sm text-[#1f241c]/65">Warm cream surfaces with sage actions.</p>
-                  </div>
-                  <div className="rounded-3xl border border-[#E4DFB5]/35 bg-[#1f241c] p-5 text-[#FBE8CE]">
-                    <p className="font-black">Dark console</p>
-                    <p className="mt-2 text-sm text-[#FBE8CE]/65">High contrast monitoring for operations rooms.</p>
-                  </div>
+                      "access_token": "eyJhbGciOiJSUzI1NiIs...",
+                      "id_token": "eyJraWQiOiJrZXlfMjAyNi...",
+                      "token_type": "Bearer",
+                      "expires_in": 3600,
+                      "scope": "openid profile email",
+                      "session_id": "sess_prod_4Kp9a2"
+                    }`}
+                  </CodeBlock>
                 </div>
               </GlassCard>
             </div>
