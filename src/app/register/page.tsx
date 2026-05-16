@@ -1,23 +1,42 @@
 "use client"
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
-import { useState } from "react";
+import { SubmitEventHandler, useState } from "react";
 
 export default function RegisterPage() {
   const [formValues, setFormValues] = useState({
-    fullName: '',
+    full_name: '',
     organization: '',
     email: '',
     password: '',
-    redirectUri: '',
-  })
+    redirect_uri: '',
+  });
 
-  const handleFormValueChange = (formField: string, formValues: string) => {
+  console.log(formValues);
+
+
+  const handleFormValueChange = async (formField: string, formValues: string) => {
     setFormValues((prevValues) => ({
       ...prevValues,
       [formField]: formValues
     }));
   };
+
+  const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch('/api/user/register', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues)
+    });
+
+    const data = await response.json()
+
+    console.log(data)
+  }
 
 
   return (
@@ -28,16 +47,16 @@ export default function RegisterPage() {
       asideTitle="Guided application onboarding"
       asideText="Launch with safe defaults for PKCE, redirect URI validation, token signing, session policies, and event monitoring."
     >
-      <form className="grid gap-5">
+      <form className="grid gap-5" onSubmit={handleFormSubmit}>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Full name" placeholder="Full Name" required value={formValues.fullName} onChange={handleFormValueChange} />
+          <Field label="Full Name" placeholder="Full Name" required value={formValues.full_name} onChange={handleFormValueChange} />
           <Field label="Organization" placeholder="Organization" required value={formValues.organization} onChange={handleFormValueChange} />
         </div>
-        <Field label="Work email" type="email" placeholder="Email Address" required value={formValues.email} onChange={handleFormValueChange} />
+        <Field label="Email" type="email" placeholder="Email Address" required value={formValues.email} onChange={handleFormValueChange} />
         {/* <Field label="Issuer slug" placeholder="northstar-auth" /> */}
         {/* <SelectField label="Application type" options={["Web application", "Single-page app", "Mobile app", "Machine-to-machine"]} /> */}
         <Field label="Password" type="password" placeholder="Create a strong password" required value={formValues.password} onChange={handleFormValueChange} />
-        <Field label="Redirect URI" type="url" placeholder="http://xyz.com/authenticate/callback" required value={formValues.redirectUri} onChange={handleFormValueChange} />
+        <Field label="Redirect URI" type="url" placeholder="http://xyz.com/authenticate/callback" required value={formValues.redirect_uri} onChange={handleFormValueChange} />
         <label className="flex items-start gap-3 rounded-2xl border border-[#E4DFB5] bg-[#C3CC9B]/35 p-4 text-sm leading-6 text-[#1f241c]/70">
           <input type="checkbox" className="mt-1 size-4 accent-[#9AB17A]" required />
           <span>

@@ -22,7 +22,7 @@ export function Field({
         required={required}
         className="h-12 rounded-2xl border border-[#E4DFB5] bg-white/60 px-4 text-sm font-semibold text-[#1f241c] outline-none transition placeholder:text-[#1f241c]/35 hover:bg-white/80 focus:border-[#9AB17A] focus:ring-4 focus:ring-[#9AB17A]/20"
         value={value}
-        onChange={(e) => onChange(label.toLowerCase(), e.target.value)}
+        onChange={(e) => onChange(label.toLowerCase().replaceAll(' ', '_'), e.target.value)}
       />
     </label>
   );
