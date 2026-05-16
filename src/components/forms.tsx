@@ -2,12 +2,16 @@ export function Field({
   label,
   type = "text",
   placeholder,
-  required = false
+  required = false,
+  value,
+  onChange
 }: {
   label: string;
   type?: string;
   placeholder: string;
   required?: boolean
+  value: string;
+  onChange: (formField: string, formValues: string) => void;
 }) {
   return (
     <label className="grid gap-2">
@@ -17,6 +21,8 @@ export function Field({
         placeholder={placeholder}
         required={required}
         className="h-12 rounded-2xl border border-[#E4DFB5] bg-white/60 px-4 text-sm font-semibold text-[#1f241c] outline-none transition placeholder:text-[#1f241c]/35 hover:bg-white/80 focus:border-[#9AB17A] focus:ring-4 focus:ring-[#9AB17A]/20"
+        value={value}
+        onChange={(e) => onChange(label.toLowerCase(), e.target.value)}
       />
     </label>
   );

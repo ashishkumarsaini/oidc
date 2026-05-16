@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   return NextResponse.json(
     {
       issuer: origin,
-      authorization_endpoint: process.env.NEXT_PUBLIC_OIDC_AUTHORIZATION_ENDPOINT ?? `${origin}/oauth/authenticate`,
+      authorization_endpoint: process.env.NEXT_PUBLIC_OIDC_AUTHORIZATION_ENDPOINT ?? `${origin}/login`,
       userinfo_endpoint: process.env.NEXT_PUBLIC_OIDC_TOKEN_ENDPOINT ?? `${origin}/oauth2/user-info`,
       jwks_uri: process.env.NEXT_PUBLIC_OIDC_JWKS_URI ?? `${origin}/oauth2/jwks.json`,
     },
