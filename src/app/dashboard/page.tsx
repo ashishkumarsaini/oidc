@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { CodeBlock, GlassCard, Logo } from "@/components";
+import { useAuth } from "@/provider/auth-provider";
 
 const sidebar = ["Overview", "Providers", "Sessions", "Tokens", "Errors", "API Keys", "Users"];
 const cards = [
@@ -27,6 +32,19 @@ const users = [
 ];
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isAuthenticated, router]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <main className="min-h-screen bg-[#FBE8CE] text-[#1f241c]">
       <div className="grid min-h-screen lg:grid-cols-[280px_1fr]">

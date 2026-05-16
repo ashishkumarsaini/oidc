@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
 import { SubmitEventHandler, useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function RegisterPage() {
   const [formValues, setFormValues] = useState({
@@ -11,9 +12,7 @@ export default function RegisterPage() {
     password: '',
     redirect_uri: '',
   });
-
-  console.log(formValues);
-
+  const [error, setError] = useState('');
 
   const handleFormValueChange = async (formField: string, formValues: string) => {
     setFormValues((prevValues) => ({
@@ -25,6 +24,11 @@ export default function RegisterPage() {
   const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (!formValues.email || !formValues.full_name || !formValues.organization || !formValues.password || !formValues.redirect_uri) {
+      setError('All fields are required');
+      return;
+    }
+
     const response = await fetch('/api/user/register', {
       method: "POST",
       headers: {
@@ -33,9 +37,13 @@ export default function RegisterPage() {
       body: JSON.stringify(formValues)
     });
 
-    const data = await response.json()
+    const data = await response.json();
 
-    console.log(data)
+    if (data.success) {
+      redirect('/login')
+    } else {
+      setError(data.message || 'Unable to register user.');
+    }
   }
 
 
@@ -64,6 +72,7 @@ export default function RegisterPage() {
             organization&apos;s security policy.
           </span>
         </label>
+        {error && <strong className="text-sm bg-red-500">{error}</strong>}
         <PrimaryButton>Create workspace</PrimaryButton>
       </form>
       <p className="mt-7 text-sm font-bold text-[#1f241c]/60">

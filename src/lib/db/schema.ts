@@ -1,9 +1,15 @@
-import { integer, varchar, pgTable } from "drizzle-orm/pg-core";
+import { varchar, pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  full_name: varchar("full_name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  password: varchar("password", { length: 255 }).notNull(),
-  redirect_uri: varchar("redirect_uri", { length: 2000 }).notNull()
+  id: uuid("id").primaryKey().defaultRandom(),
+  full_name: varchar("full_name", { length: 100 }),
+  email: varchar("email", { length: 322 }).notNull(),
+
+  password: varchar("password", { length: 66 }),
+  salt: text("salt"),
+
+  redirect_uri: varchar("redirect_uri", { length: 2000 }).notNull(),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 });

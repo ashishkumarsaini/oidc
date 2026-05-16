@@ -2,13 +2,17 @@
 import Link from "next/link";
 import { AuthShell, Field, PrimaryButton } from "@/components";
 import { SubmitEventHandler, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/provider/auth-provider";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
   });
   const [error, setError] = useState('');
+  const { login } = useAuth();
 
   const handleFormValueChange = (formField: string, formValues: string) => {
     setFormValues((prevValues) => ({
@@ -17,15 +21,30 @@ export default function LoginPage() {
     }))
   }
 
-  const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (formValues.email && formValues.password) {
-      setError('');
+    if (!formValues.email || !formValues.password) {
+      setError('All fields are required');
+      return;
+    }
 
+    const response = await fetch('/api/user/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues)
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      login(data.data.user);
+      router.push('/dashboard')
+    } else {
+      setError(data.message || 'Unable to login user.');
     }
-    else {
-      setError('Please enter form credentials');
-    }
+
   }
 
   return (
@@ -40,7 +59,7 @@ export default function LoginPage() {
         <Field required label="Email" type="email" placeholder="admin@company.com" value={formValues.email} onChange={handleFormValueChange} />
         <Field required label="Password" type="password" placeholder="Enter your password" value={formValues.password} onChange={handleFormValueChange} />
         {/* <SelectField label="Workspace" options={["Production", "Staging", "Customer sandbox"]} /> */}
-        <strong className="text-red-500 text-sm">{error}</strong>
+        {error && <strong className="text-sm text-red-500">{error}</strong>}
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <label className="flex items-center gap-2 font-bold text-[#1f241c]/60">
             <input type="checkbox" className="size-4 accent-[#9AB17A]" />

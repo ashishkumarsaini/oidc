@@ -8,6 +8,20 @@
       "when": 1778926462978,
       "tag": "0000_right_lifeguard",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778929750234,
+      "tag": "0001_flippant_maddog",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778930438017,
+      "tag": "0002_glossy_king_cobra",
+      "breakpoints": true
     }
   ]
 }

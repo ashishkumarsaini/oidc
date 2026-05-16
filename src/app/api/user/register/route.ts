@@ -4,13 +4,14 @@ import { db } from "@/lib/db";
 import { usersTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "node:crypto";
 
 export async function POST(request: NextRequest,) {
   const { full_name, email, password, redirect_uri } = await request.json();
 
   if (!full_name || !email || !password || !redirect_uri) {
     return NextResponse.json({
-      error: 'All fields are required',
+      message: 'All fields are required',
       success: false
     }, { status: 400 })
   }
@@ -24,13 +25,16 @@ export async function POST(request: NextRequest,) {
 
     if (existingUser.length > 0) {
       return NextResponse.json({
-        error: 'User already exists',
+        message: 'User already exists',
         success: false
       }, { status: 409 });
     }
 
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.createHash('sha256').update(password + salt).digest('hex')
+
     const user: typeof usersTable.$inferInsert = {
-      full_name, email, password, redirect_uri
+      full_name, email, password: hash, salt, redirect_uri
     };
 
     const insertedUser = await db.insert(usersTable).values(user).returning({
@@ -49,6 +53,6 @@ export async function POST(request: NextRequest,) {
   } catch (error) {
     console.log("Register user failed: ", error);
 
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ message: 'Internal server error', success: false }, { status: 500 });
   }
 }
